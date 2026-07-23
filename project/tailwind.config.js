@@ -1,0 +1,60 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['"Newsreader"', 'Georgia', 'serif'],
+      },
+      colors: {
+        ink: {
+          50: '#f6f7f8',
+          100: '#eceef1',
+          200: '#d5d9df',
+          300: '#b1b8c2',
+          400: '#87919f',
+          500: '#677384',
+          600: '#525c6b',
+          700: '#434b57',
+          800: '#393f49',
+          900: '#1a1d22',
+        },
+        civic: {
+          50: '#eaf6f2',
+          100: '#cfeae0',
+          200: '#a3d6c4',
+          300: '#6dbca0',
+          400: '#3da07f',
+          500: '#1f8565',
+          600: '#156a51',
+          700: '#115542',
+          800: '#0f4c5c',
+          900: '#0a3742',
+        },
+        signal: {
+          50: '#fff8eb',
+          100: '#feecbf',
+          200: '#fdd97a',
+          300: '#fbbf33',
+          400: '#f5a513',
+          500: '#d9800a',
+          600: '#b35a06',
+          700: '#904208',
+          800: '#73350b',
+          900: '#5e2c0d',
+        },
+        alert: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          400: '#f87171',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+        },
+      },
+    },
+  },
+  plugins: [],
+};
