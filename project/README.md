@@ -2,7 +2,7 @@
 
 > Turn neighborhood complaints into structured municipal tickets with AI. Citizens report hyper-local issues, AI generates a professional work order, and the community upvotes to build civic momentum.
 
-**Live app:** _(add your deployed URL here)_
+**Live app:** _https://ai-app-capstone-proj-57go.bolt.host
 **Repository:** _(add your GitHub repo URL here)_
 
 ---
