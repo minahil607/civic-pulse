@@ -1,3 +1,7 @@
+## Demo
+
+Live demo: https://ai-app-capstone-proj-57go.bolt.host
+
 # CivicPulse
 
 CivicPulse is a community-driven civic reporting platform that helps residents report local problems, surface neighborhood issues, and support responsive civic action. The current version focuses on a reliable, free local workflow for creating structured civic tickets and sharing them with the community.
@@ -188,9 +192,6 @@ User -> React frontend -> Report form / Ticket generator -> Supabase database
 - Make the data model simple and easy to extend
 - Support community-driven prioritization through upvotes
 
-## Demo
-
-Live demo: https://ai-app-capstone-proj-57go.bolt.host
 
 ## License
 
