@@ -12,19 +12,6 @@ Empowering communities through AI-assisted civic reporting and democratic neighb
 
 ---
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
-- [Database Schema](#database-schema)
-- [Getting Started](#getting-started)
-- [User Workflow](#user-workflow)
-- [Future Roadmap](#future-roadmap)
-- [License](#license)
-
----
 
 ## 🏛️ Overview
 
