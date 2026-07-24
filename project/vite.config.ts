@@ -13,13 +13,4 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
-  server: {
-    proxy: {
-      '/api/ai': {
-        target: 'http://localhost:9091/proxy/anthropic/v1/messages',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/ai/, ''),
-      },
-    },
-  },
 });

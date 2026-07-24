@@ -19,6 +19,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a[href*="bolt.new"],
+a[href*="bolt.host"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 .font-serif {
   font-family: "Newsreader", Georgia, serif;
 }

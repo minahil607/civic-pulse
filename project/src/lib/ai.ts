@@ -91,40 +91,6 @@ export async function generateTicket(
   category: Category,
   severity: Severity,
 ): Promise<{ ticket: AITicket; source: "ai" | "fallback" }> {
-  const userPrompt = `Category: ${category}
-Severity: ${severity}
-Description: "${description.slice(0, 2000)}"
-
-Generate the municipal ticket JSON now.`;
-
-  try {
-    const res = await fetch("/api/ai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": "sk-ant-api00-proxy",
-        "anthropic-version": "2023-06-01",
-        "x-bolt-target-provider": "baseten",
-      },
-      body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 600,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: "user", content: userPrompt }],
-      }),
-    });
-
-    if (!res.ok) throw new Error(`AI request failed (${res.status})`);
-
-    const data = (await res.json()) as AIResponse;
-    const text = data.content?.[0]?.text;
-    if (!text) throw new Error("Empty AI response");
-
-    const parsed = extractJson(text);
-    if (!validateTicket(parsed)) throw new Error("Invalid AI response shape");
-
-    return { ticket: parsed, source: "ai" };
-  } catch {
-    return { ticket: ruleBasedFallback(description, category, severity), source: "fallback" };
-  }
+  const fallbackTicket = ruleBasedFallback(description, category, severity);
+  return { ticket: fallbackTicket, source: "fallback" };
 }

@@ -1,213 +1,197 @@
 # CivicPulse
 
-**Report. Resolve. Rebuild.**
+CivicPulse is a community-driven civic reporting platform that helps residents report local problems, surface neighborhood issues, and support responsive civic action. The current version focuses on a reliable, free local workflow for creating structured civic tickets and sharing them with the community.
 
-Empowering communities through AI-assisted civic reporting and democratic neighborhood prioritization.
+## Overview
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-ai--app--capstone--proj--57go.bolt.host-0284c7?style=for-the-badge&logo=globe)](https://ai-app-capstone-proj-57go.bolt.host)
-[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
-[![Supabase](https://img.shields.io/badge/Supabase-Database_&_Auth-3ECF8E?style=flat&logo=supabase)](https://supabase.com)
+CivicPulse combines three core ideas:
 
----
+- Community reporting: residents can quickly describe issues from their phone or desktop.
+- Community prioritization: neighbors can upvote reports to show which problems deserve more attention.
+- Civic visibility: a shared feed and dashboard help people track what is being reported and what is being resolved.
 
+<<<<<<< Updated upstream
+=======
+## What’s new
 
-## 🏛️ Overview
+- Ticket generation uses a built-in fallback system instead of depending on an external AI API.
+- No external AI key is required for the default experience.
+- The app remains free to run for basic report generation and submission.
+- The frontend and Supabase-backed report flow have been verified successfully.
 
-CivicPulse is an AI-driven, hyper-local civic engagement platform designed to bridge the gap between residents and municipal governments. 
+## Key features
+>>>>>>> Stashed changes
 
-**The Problem:** Neighborhood issues like potholes, broken streetlights, and water leaks often go unreported or unresolved due to unclear reporting processes and lack of community visibility.
+- Report civic issues such as potholes, streetlights, graffiti, trash, sidewalks, water leaks, and more
+- Upload a photo or provide a photo URL for evidence
+- Generate a structured municipal-style ticket with a suggested department, priority, and action steps
+- Upvote reports to show community priority
+- Browse a community feed and neighborhood dashboard
+- Track report lifecycle states such as submitted, acknowledged, in progress, and resolved
+- Route reports to departments such as Public Works, Transportation, Street Lighting, Sanitation, and Water Utilities
 
-**The Solution:** CivicPulse combines natural language AI parsing with community-driven upvoting. Citizens simply describe the issue in plain text. Our AI engine instantly analyzes the problem, categorizes it, routes it to the appropriate department, and prioritizes it based on urgency and community support.
+## User flow
 
----
+1. A resident opens the app and clicks Report an Issue.
+2. They describe the problem, select a category and severity, and add optional location or photo details.
+3. The app generates a structured ticket with a suggested department, priority, and action steps.
+4. The report is saved to Supabase and appears in the community feed.
+5. Other residents can review and upvote it from the feed or dashboard.
+6. Status updates can be reflected over time as issues move through resolution.
 
-## ✨ Key Features
+## Data model
 
-### 1. 🤖 AI-Powered Municipal Ticket Generation
+The app stores reports and upvotes in Supabase.
 
-- **Natural Language Parsing:** Accepts raw citizen descriptions (e.g., "There is a huge pothole near Oak St & 3rd Ave causing cars to swerve into oncoming traffic")
-- **Automated Categorization:** Classifies reports into categories such as Pothole, Streetlight, Water/Leak, Sanitation, Sidewalk, Graffiti, or Traffic Signs
-- **Department Routing:** Automatically assigns tickets to the responsible department (e.g., Public Works, Transportation, Water Utilities)
-- **Smart Priority Leveling:** Evaluates safety risks and assigns priority ranks (Low, Medium, High, Critical)
-- **Actionable Work Steps:** Generates 2–4 concrete, itemized steps for field repair crews
-
-### 2. 👍 Community Upvoting & Democratic Prioritization
-
-- **Neighborhood Voice:** Residents upvote issues affecting their area to build community momentum
-- **Smart Sorting:** Filter feed by "Most Upvoted" to help city administrators identify high-impact issues
-- **Duplicate Mitigation:** Public visibility lets neighbors upvote existing reports rather than file duplicates
-
-### 3. 📊 Real-Time Neighborhood Dashboard
-
-- **Civic Metrics:** Tracks total community reports, overall upvotes, and resolution metrics
-- **Resolution Progress:** Visual indicators showing percentage of reported issues successfully resolved
-- **Category Breakdown:** Displays top issue categories to inform urban planning decisions
-
-### 4. 🔍 Advanced Filtering & Status Tracking
-
-- **Filter by Category:** Narrow down issues by type (Pothole, Streetlight, Water, etc.)
-- **Filter by Status:** Track tickets across lifecycle stages:
-  - 🟡 **Pending** — Submitted and awaiting municipal dispatch
-  - 🔵 **In Progress** — Work order issued to field crews
-  - 🟢 **Resolved** — Issue repaired and verified
-
----
-
-## 📐 Architecture
-
-```
-┌──────────────────────┐         ┌─────────────────────────┐
-│ Citizen Submission   │────────▶│  CivicPulse Frontend    │
-│ (Text + Location)    │         │ React 19 + TypeScript   │
-└──────────────────────┘         └─────────────────────────┘
-                                           │
-                                           ▼
-                        ┌─────────────────────────────┐
-                        │   AI Engine Processing      │
-                        │ • Categorization            │
-                        │ • Department Routing        │
-                        │ • Priority Evaluation       │
-                        │ • Action Plan Generation    │
-                        └─────────────────────────────┘
-                                           │
-                                           ▼
-┌──────────────────────┐         ┌─────────────────────────┐
-│ Community Dashboard  │◀────────│  Supabase Backend       │
-│ & Upvoting           │         │ PostgreSQL + Real-time  │
-└──────────────────────┘         └─────────────────────────┘
-```
-
----
-
-## 🛠️ Tech Stack
-
-| Domain | Technology | Description |
-|--------|-----------|-------------|
-| **Frontend Framework** | React 19 | Modern functional components |
-| **Language** | TypeScript 5.8 | End-to-end type safety |
-| **Styling** | Tailwind CSS v4 | Responsive, utility-first design |
-| **Icons** | Lucide React | Clean, accessible vector icons |
-| **Typography** | Plus Jakarta Sans & Newsreader | High-contrast, legible fonts |
-| **Database & Auth** | Supabase (PostgreSQL) | Persistent storage, real-time sync, RLS |
-| **AI Integration** | Claude / Gemini API | Natural language analysis |
-| **Build System** | Vite | Fast module bundling |
-
----
-
-## 🗄️ Database Schema
+## Database Schema
 
 ### reports Table
 
 | Column | Type | Description |
-|--------|------|-------------|
-| `id` | uuid (PK) | Unique report identifier |
-| `description` | text | Raw text description from user |
-| `category` | varchar | Type: pothole, streetlight, water, sanitation, etc. |
-| `location` | text | Street address or intersection |
-| `priority` | varchar | Urgency: Low, Medium, High, Critical |
-| `department` | varchar | Target municipal department |
-| `action_steps` | jsonb / array | AI-generated repair steps |
-| `status` | varchar | pending, in_progress, resolved |
-| `upvote_count` | integer | Total community upvotes |
-| `created_at` | timestamptz | Submission timestamp |
+| --- | --- | --- |
+| id | uuid | Unique identifier for each report |
+| title | text | Short title of the civic issue |
+| description | text | Full description entered by the user |
+| category | text | Issue category such as pothole, streetlight, trash, or water |
+| severity | text | Severity level such as low, medium, high, or urgent |
+| status | text | Current lifecycle state of the report |
+| location_text | text | Human-readable location entered by the user |
+| photo_url | text | Optional URL or local image reference for evidence |
+| ai_department | text | Department suggested by the ticket generator |
+| ai_priority | text | Priority suggested by the ticket generator |
+| ai_action_items | json | Structured list of recommended actions |
+| ai_summary | text | AI-generated summary of the report |
+| client_id | text | Client identifier used to avoid duplicate submissions |
+| upvote_count | integer | Number of community upvotes |
+| created_at | timestamptz | Timestamp when the report was created |
 
 ### upvotes Table
 
 | Column | Type | Description |
-|--------|------|-------------|
-| `id` | uuid (PK) | Unique upvote entry ID |
-| `report_id` | uuid (FK) | Reference to reports.id |
-| `client_id` / `user_id` | text | Unique identifier (prevents duplicates) |
-| `created_at` | timestamptz | When upvote was cast |
+| --- | --- | --- |
+| id | uuid | Unique identifier for the upvote |
+| report_id | uuid | Reference to the report being upvoted |
+| client_id | text | Client identifier for the user who voted |
+| created_at | timestamptz | Timestamp when the upvote was created |
 
----
+### Notes
 
-## 🚀 Getting Started
+Each upvote links a client ID to a specific report so duplicate voting is reduced.
+
+## Tech stack
+
+| Domain | Technology | Description |
+| --- | --- | --- |
+| Frontend | React + TypeScript | Builds the user interface and app interactions |
+| Build tool | Vite | Fast development server and production bundling |
+| Styling | Tailwind CSS | Utility-first styling for responsive UI components |
+| UI icons | Lucide React | Clean icon set for navigation, actions, and status indicators |
+| Backend / Data | Supabase | Stores reports and upvotes in a PostgreSQL database |
+| App logic | TypeScript | Powers the report flow, ticket generation, and UI state |
+
+## Project structure
+
+- src/pages: Feed, Report, Dashboard, and report-detail views
+- src/components: shared UI layout and badges
+- src/lib: Supabase client and ticket-generation logic
+- supabase/: database schema and migration files
+
+## Local setup
 
 ### Prerequisites
 
-- **Node.js:** v18.0.0 or higher
-- **npm** or **pnpm**
-- **Supabase Account** (optional for local development with mock credentials)
+- Node.js 18 or newer
+- npm
+- A Supabase project for the database connection
 
-### Installation
-
-**1. Clone the repository:**
-
-```bash
-git clone https://github.com/minahil607/civic-pulse.git
-cd civic-pulse
-```
-
-**2. Install dependencies:**
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-**3. Configure environment variables:**
+### Configure environment variables
 
-Create a `.env` file in the project root:
+Create a .env file in the project root with:
 
 ```env
-VITE_SUPABASE_URL=https://your-supabase-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
-GEMINI_API_KEY=your-gemini-api-key
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-**4. Start the development server:**
+### Run locally
 
 ```bash
 npm run dev
 ```
 
-Open your browser and navigate to `http://localhost:3000`
+Open http://localhost:5173 in your browser.
 
-**5. Build for production:**
+### Build for production
 
 ```bash
 npm run build
 ```
 
----
+## AI generation behavior
 
-## 📱 User Workflow
+The current app uses a built-in fallback generator to create:
 
-### Step 1: Report an Issue
-- Click "Report an Issue" in the navigation bar
-- Provide a description and location details
+- a ticket summary
+- a relevant department
+- a priority level
+- action items
 
-### Step 2: AI Ticket Generation
-- Click "Generate AI Ticket"
-- AI instantly analyzes, categorizes, and creates an actionable ticket
+This keeps the app free and dependable without requiring an external API subscription. If you later want stronger AI quality, you can optionally wire in a paid external model.
 
-### Step 3: Submit to Community
-- Review the AI-generated ticket and click "Submit Report"
+## Current status
 
-### Step 4: Community Engagement
-- Neighbors view issues on the Neighborhood Dashboard
-- Click "Upvote" to boost ticket priority
-- Status badges update as departments resolve issues
+- Frontend: working
+- Supabase connection: working
+- Report creation flow: working
+- Ticket generation: available through the built-in fallback flow
+- Community feed and dashboard: loading report data successfully
 
----
+## Architecture & system design
 
-## 🔮 Future Roadmap
+CivicPulse follows a simple three-layer architecture:
 
-- 🗺️ **Interactive GIS Map View** — Visual map pins showing reports across city sectors
-- 👨‍💼 **Municipal Administrator Portal** — Specialized interface for city workers to update statuses
-- 📸 **Photo Upload & Computer Vision** — Automatic visual classification of issue photos
-- 📲 **SMS & Email Notifications** — Alerts when neighborhood issues are marked "In Progress" or "Resolved"
+### 1. Frontend layer
 
----
+- Built with React, TypeScript, and Vite
+- Handles the user experience for reporting, browsing, upvoting, and dashboard views
+- Uses Tailwind CSS for styling and Lucide icons for interface elements
 
-## 📄 License
+### 2. Application layer
 
-This project was built for the AI Application Capstone and is distributed under the **Apache 2.0 License**.
+- The report form collects issue details and sends them to the app logic
+- The built-in fallback ticket generator converts the report into a structured civic ticket
+- The app manages page state, selected reports, and user interactions
 
-**Live Application:** [https://ai-app-capstone-proj-57go.bolt.host](https://ai-app-capstone-proj-57go.bolt.host)
+### 3. Data layer
 
----
+- Supabase stores reports and upvotes in a PostgreSQL database
+- The frontend reads report data from Supabase and writes new submissions and upvotes back to the database
+- This creates a shared source of truth for the feed, dashboard, and report detail views
 
-**Tagline:** Report. Resolve. Rebuild. 🏛️
+### High-level flow
+
+```text
+User -> React frontend -> Report form / Ticket generator -> Supabase database
+                                  \-> Feed and dashboard views <-/
+```
+
+### Design goals
+
+- Keep the app lightweight and easy to run locally
+- Use a free fallback generator so the app works without an external AI API key
+- Make the data model simple and easy to extend
+- Support community-driven prioritization through upvotes
+
+## Demo
+
+Live demo: https://ai-app-capstone-proj-57go.bolt.host
+
+## License
+
+This project is intended for educational and demo purposes.

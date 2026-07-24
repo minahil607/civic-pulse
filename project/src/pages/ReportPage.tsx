@@ -1,4 +1,18 @@
 import { useState } from "react";
+
+function inferCategoryFromImage(fileName: string): Category | null {
+  const name = fileName.toLowerCase();
+  if (/pothole|road|crack|asphalt/.test(name)) return "pothole";
+  if (/light|streetlight|lamp|bulb/.test(name)) return "streetlight";
+  if (/graffiti|paint|tag/.test(name)) return "graffiti";
+  if (/trash|dump|litter|garbage/.test(name)) return "trash";
+  if (/sidewalk|walkway|footpath/.test(name)) return "sidewalk";
+  if (/water|leak|pipe|drain/.test(name)) return "water";
+  if (/tree|branch|leaf/.test(name)) return "tree";
+  if (/sign|signal|traffic/.test(name)) return "signage";
+  if (/park|parking|car/.test(name)) return "parking";
+  return null;
+}
 import {
   Wand2,
   Loader2,
@@ -34,6 +48,7 @@ export function ReportPage({ onNavigate, onOpenReport }: ReportPageProps) {
   const [severity, setSeverity] = useState<Severity>("medium");
   const [location, setLocation] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
+  const [imageHint, setImageHint] = useState<string | null>(null);
   const [generating, setGenerating] = useState(false);
   const [saving, setSaving] = useState(false);
   const [ticket, setTicket] = useState<AITicket | null>(null);
@@ -42,6 +57,22 @@ export function ReportPage({ onNavigate, onOpenReport }: ReportPageProps) {
 
   const canGenerate = description.trim().length >= 10;
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const inferred = inferCategoryFromImage(file.name);
+    if (inferred) {
+      setCategory(inferred);
+      setImageHint(`Image hint: ${CATEGORY_META[inferred].label}`);
+    } else {
+      setImageHint("Image hint: category could not be inferred automatically");
+    }
+
+    const localUrl = URL.createObjectURL(file);
+    setPhotoUrl(localUrl);
+  };
+
   const handleGenerate = async () => {
     if (!canGenerate) return;
     setError(null);
@@ -49,10 +80,15 @@ export function ReportPage({ onNavigate, onOpenReport }: ReportPageProps) {
     setTicket(null);
     setTicketSource(null);
 
-    const { ticket, source } = await generateTicket(description, category, severity);
-    setTicket(ticket);
-    setTicketSource(source);
-    setGenerating(false);
+    try {
+      const { ticket, source } = await generateTicket(description, category, severity);
+      setTicket(ticket);
+      setTicketSource(source);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not generate a ticket. Please try again.");
+    } finally {
+      setGenerating(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -181,7 +217,7 @@ export function ReportPage({ onNavigate, onOpenReport }: ReportPageProps) {
           </div>
         </div>
         <div>
-          <label className="mb-2 block text-sm font-semibold text-ink-800">Photo URL (optional)</label>
+          <label className="mb-2 block text-sm font-semibold text-ink-800">Photo upload or URL (optional)</label>
           <div className="relative">
             <Camera className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
             <input
@@ -192,6 +228,18 @@ export function ReportPage({ onNavigate, onOpenReport }: ReportPageProps) {
               className="input-field pl-11"
             />
           </div>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="mt-3 block w-full text-sm text-ink-600 file:mr-4 file:rounded-full file:border-0 file:bg-civic-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-civic-700 hover:file:bg-civic-100"
+          />
+          {imageHint && (
+            <p className="mt-2 text-sm text-civic-700">{imageHint}</p>
+          )}
+          {photoUrl && !photoUrl.startsWith("http") && (
+            <p className="mt-2 text-xs text-ink-500">Local image ready to attach to the report.</p>
+          )}
         </div>
       </div>
 
