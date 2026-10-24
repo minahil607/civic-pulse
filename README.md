@@ -200,3 +200,14 @@ Support community-driven prioritization through upvotes
 License
 
 This project is intended for educational and demo purposes.
+
+## 👤 Author
+
+**Minahil Ashraf**
+- GitHub: [minahil607](https://github.com/minahil-607)
+- LinkedIn: [Minahil Ashraf](https://www.linkedin.com/in/minahil-ashraf-695812391)
+- Email: minahilashraf669@gmail.com
+
+---
+
+⭐ If you found this project useful, consider giving it a star!
